@@ -50,6 +50,11 @@ services:
         condition: service_healthy
       provider:
         condition: service_started
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "nc -z 127.0.0.1 8080" ]
+      interval: 5s
+      timeout: 60s
+      retries: 120
 
   consumer:
     extends:
