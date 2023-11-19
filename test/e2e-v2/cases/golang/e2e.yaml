@@ -32,7 +32,7 @@ trigger:
   action: http
   interval: 3s
   times: 10
-  url: http://${consumer_host}:${consumer_9092}/correlation
+  url: http://${consumer_host}:${consumer_9092}/
   method: POST
 
 verify:

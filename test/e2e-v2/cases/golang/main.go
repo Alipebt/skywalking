@@ -7,13 +7,11 @@ import (
 	"time"
 
 	_ "github.com/apache/skywalking-go"
-	"github.com/apache/skywalking-go/toolkit/trace"
 )
 
 func ServerHTTP(writer http.ResponseWriter, request *http.Request) {
 	time.Sleep(time.Duration(500) * time.Millisecond)
-	req, err := http.NewRequest(http.MethodPost, "upstream-service", http.NoBody)
-	trace.SetCorrelation("key", "value")
+	req, err := http.NewRequest(http.MethodPost, "oap:11800", http.NoBody)
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -28,7 +26,7 @@ func ServerHTTP(writer http.ResponseWriter, request *http.Request) {
 
 func main() {
 	http.HandleFunc("/", ServerHTTP)
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8000", nil)
 	if err != nil {
 		log.Fatal(err)
 	}

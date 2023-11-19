@@ -36,32 +36,28 @@ services:
       context: .
       dockerfile: Dockerfile.go
       args:
-        - SW_AGENT_GO_COMMIT=${SW_AGENT_GO_COMMIT}
-    volumes:
-      - ./main.go:/e2e/main.go
-      - ./go.mod:/e2e/go.mod
-      - ./go.sum:/e2e/go.sum
+        - SW_AGENT_GOLANG_COMMIT=${SW_AGENT_GOLANG_COMMIT}
     networks:
       - e2e
     expose:
-      - 8080
+      - 8000
     depends_on:
       oap:
         condition: service_healthy
       provider:
         condition: service_started
     healthcheck:
-      test: [ "CMD", "sh", "-c", "nc -z 127.0.0.1 8080" ]
+      test: [ "CMD", "sh", "-c", "nc -z 127.0.0.1 8000" ]
       interval: 5s
-      timeout: 60s
-      retries: 120
+      timeout: 20s
+      retries: 1
 
   consumer:
     extends:
       file: ../../script/docker-compose/base-compose.yml
       service: consumer
     environment:
-      PROVIDER_URL: http://golang:8080
+      PROVIDER_URL: http://golang:8000
     depends_on:
       oap:
         condition: service_healthy
