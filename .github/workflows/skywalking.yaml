@@ -325,6 +325,8 @@ jobs:
             config: test/e2e-v2/cases/golang/e2e.yaml
           - name: Agent PHP
             config: test/e2e-v2/cases/php/e2e.yaml
+          - name: Agent Go
+            config: test/e2e-v2/cases/go/e2e.yaml
     steps:
       - uses: actions/checkout@v3
         with:

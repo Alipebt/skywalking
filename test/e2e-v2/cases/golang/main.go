@@ -11,9 +11,9 @@ import (
 
 func ServerHTTP(writer http.ResponseWriter, request *http.Request) {
 	time.Sleep(time.Duration(500) * time.Millisecond)
-	req, err := http.NewRequest(http.MethodPost, "oap:11800", http.NoBody)
+	//req, err := http.NewRequest(http.MethodPost, "oap:11800", http.NoBody)
 	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := client.Do(request)
 	if err != nil {
 		log.Fatal(err)
 	}
